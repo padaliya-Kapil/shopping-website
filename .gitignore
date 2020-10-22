@@ -15,7 +15,7 @@ node_modules/
 
 # misc
 .DS_Store
-#Global variables can contain important data
+#Global variables can contain important data     
 .env
 .env.local
 .env.development.local
