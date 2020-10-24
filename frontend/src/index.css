@@ -3,3 +3,10 @@ main{
   /* color: #255000; */
   /* border: 1px solid black; */
 }
+
+.rating span{
+  margin: 0.1rem ;
+}
+h3{
+  padding: 1rem 0;
+}
