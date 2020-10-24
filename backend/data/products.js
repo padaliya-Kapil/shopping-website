@@ -79,5 +79,5 @@ const products = [
   },
 ]
 
-// export default products //this is es6 
-module.exports = products // this is js
+export default products //this is es6 
+// module.exports = products // this is js

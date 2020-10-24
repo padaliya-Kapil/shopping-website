@@ -18,7 +18,7 @@ const ProductScreen = ({match}) => {
             setProduct(data);
         }
         fetchProduct() // calling function
-    },[]) // runs as soon as the page loads
+    },[match]) // runs as soon as the page loads
     //asuync await creates a promise
 
     return (
