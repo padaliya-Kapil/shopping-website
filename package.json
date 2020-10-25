@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is a shopping demo website in MERN stack.",
   "main": "server.js",
-  "type" : "module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server",
@@ -23,7 +23,8 @@
   "homepage": "https://github.com/padaliya-Kapil/shopping-website#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.10"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
