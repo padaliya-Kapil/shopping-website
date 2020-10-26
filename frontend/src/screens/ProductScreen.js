@@ -1,29 +1,37 @@
-import React ,{useState,useEffect} from 'react'
+import React ,{useEffect} from 'react'
+import {useDispatch,useSelector} from 'react-redux'
+
 import {Link} from 'react-router-dom'
 import {Row,Col,Image,ListGroup,Card,Button, ListGroupItem} from 'react-bootstrap'
-import axios from 'axios'
+
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 import Rating from '../components/Rating'
+
+import {listProductDetails} from '../actions/productActions.js'
 
 
 
 const ProductScreen = ({match}) => {
 
-    const [product,setProduct] = useState({}); // hook
+    const dispatch = useDispatch();
+    const productDetails = useSelector( state => state.productDetails)
+    const {loading , error, product} = productDetails;
 
 
     useEffect(()=>{
-        const fetchProduct = async() =>{
-            const {data} = await axios.get(`/api/products/${match.params.id}`) ///** data === res.data we're using destructing here */
-            setProduct(data);
-        }
-        fetchProduct() // calling function
-    },[match]) // runs as soon as the page loads
+            dispatch(listProductDetails(match.params.id));
+    },[dispatch]) // runs as soon as the page loads
     //asuync await creates a promise
 
     return (
         <>
-        <Link to='/' className='btn btn-light my-3'>Go Back</Link>   
+
+        
+        <Link to='/' className='btn btn-light my-3'>Go Back</Link>  
+        { loading ? <Loader/> :  error ? <Message variant='danger'>{error}</Message> : 
+
         <Row>
             <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid/>
@@ -85,6 +93,8 @@ const ProductScreen = ({match}) => {
                 </Card>
             </Col>
             </Row>  
+        }
+        
         </>
     )
 }
