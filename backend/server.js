@@ -10,7 +10,6 @@ import productRoutes from './routes/productRoutes.js'
 // This is for error handling
 
 import {notFound,erroHandler} from './middleware/errorMiddleWare.js'
-import e from 'express'
 
 const PORT = process.env.PORT || 5000
  

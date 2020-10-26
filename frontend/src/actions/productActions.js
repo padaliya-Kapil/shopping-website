@@ -1,0 +1,31 @@
+import axios from 'axios'
+import {
+    PRODUCT_LIST_REQUEST , 
+    PRODUCT_LIST_SUCCESS , 
+    PRODUCT_LIST_FAIL} from '../constants/productConstants.js'
+
+    // thunk allows us to put a function inside a function
+export const listProducts = () => async(dispatch) =>{
+    try {
+        // will call the reducer to load to product 
+        dispatch({type:PRODUCT_LIST_REQUEST})
+
+        const {data} = await axios.get('/api/products')
+
+        dispatch({type:PRODUCT_LIST_SUCCESS ,
+            payload : data
+        })
+        
+    } catch (error) {
+
+        dispatch({type : PRODUCT_LIST_FAIL ,
+        payload : error.response && error.response.data.message 
+                                ? error.response.data.message 
+                                : error.response
+    })
+        
+    }
+}
+    
+
+
