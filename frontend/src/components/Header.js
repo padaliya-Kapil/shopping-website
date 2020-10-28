@@ -13,7 +13,7 @@ const Header = () => {
     
        <Nav className="ml-auto">    {/* margin left auto   */}
 
-       <LinkContainer to='/car'>
+       <LinkContainer to='/cart'>
          <Nav.Link ><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
          </LinkContainer>
 
