@@ -14,7 +14,7 @@ import {listProductDetails} from '../actions/productActions.js'
 
 
 const ProductScreen = ({history , match}) => {
-    const[qty,setQty] = useState(0) // hooks 
+    const[qty,setQty] = useState(0) // hooks  //beware some bug is here
 
     const dispatch = useDispatch();
     const productDetails = useSelector( state => state.productDetails)
@@ -88,11 +88,11 @@ const ProductScreen = ({history , match}) => {
                         </ListGroupItem>
 
                         { product.countInStock > 0 && (
-                            <ListGroupItem>
+                            <ListGroup.Item>
                                 <Row>
                                     <Col>Quantity </Col>
                                     <Col>
-                                    <Form.Control as = 'select' value = {qty} onChange ={e =>
+                                    <Form.Control as = 'select' value = {qty} onChange ={(e) =>
                                         setQty(e.target.value)}>
                                             
                                             {[...Array(product.countInStock).keys()].map((x) =>(
@@ -104,7 +104,7 @@ const ProductScreen = ({history , match}) => {
                                     </Form.Control>
                                     </Col>
                                 </Row>
-                            </ListGroupItem>
+                            </ListGroup.Item>
 
                         )}
                         <ListGroupItem>

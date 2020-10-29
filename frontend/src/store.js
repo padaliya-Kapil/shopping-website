@@ -2,7 +2,7 @@ import {createStore , combineReducers,applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-import {productListReducer , productDetailsReducer} from './reducers/productreducers.js'
+import {productListReducer , productDetailsReducer} from './reducers/productreducers'
 import {cartReducer} from './reducers/cartreducers'
 
 const reducer = combineReducers({
@@ -15,7 +15,7 @@ const cartItemsFromStorage = localStorage.getItem('cartItems') ?
                 JSON.parse(localStorage.getItem('cartItems')) : []
 
 const initialState = {
-    cart : cartItemsFromStorage
+    cart : {cartItems:cartItemsFromStorage}
 }
 const middleware = [thunk]
 
