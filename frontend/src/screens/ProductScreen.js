@@ -14,7 +14,7 @@ import {listProductDetails} from '../actions/productActions.js'
 
 
 const ProductScreen = ({history , match}) => {
-    const[qty,setQty] = useState(0) // hooks  //beware some bug is here
+    const[qty,setQty] = useState(1) // hooks  //beware some bug is here
 
     const dispatch = useDispatch();
     const productDetails = useSelector( state => state.productDetails)
