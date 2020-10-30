@@ -2,7 +2,7 @@ import React ,{useEffect} from 'react'
 import {useDispatch , useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Row,Col,ListGroup ,Image , Form  , Button , Card} from 'react-bootstrap'
-import {addToCart} from '../actions/cartActions'
+import {addToCart,removeFromCart} from '../actions/cartActions'
 
 import Message from '../components/Message'
 
@@ -17,7 +17,7 @@ const CartScreen = ({match , location , history}) => {
    const cart = useSelector(state => state.cart)
 
    const removeFromCartHandler = (id) =>{ 
-       console.log("remove")
+       dispatch(removeFromCart(id))
    }
 
    const checkoutHandler = ()=>{
