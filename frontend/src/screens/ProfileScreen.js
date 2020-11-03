@@ -6,7 +6,7 @@ import {useDispatch , useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import {getUserDetails} from '../actions/userAction.js'
+import {getUserDetails,updateUserProfile} from '../actions/userAction.js'
  
 
 const ProfileScreen = ({location,history}) => {
@@ -24,8 +24,9 @@ const ProfileScreen = ({location,history}) => {
 
     const userDetails = useSelector(state => state.userDetails)
     const {user ,loading , error } =  userDetails
-    console.log(userDetails)
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const {success} =  userUpdateProfile
    
 
 
@@ -49,7 +50,7 @@ const ProfileScreen = ({location,history}) => {
         if(password !== confirmPassword){
             setMessage('Passwords do not match.')
         }else{
-        //    DIspatch update profile
+           dispatch(updateUserProfile({id: user._id ,name , email,password} )) 
         }
         
     }
@@ -59,6 +60,7 @@ const ProfileScreen = ({location,history}) => {
             <Col md={3}>
             <h2>User Profile</h2>
     {error && <Message variant='danger'>{error}</Message>}
+    {success && <Message variant='success'>Profile updated</Message>}
     {message && <Message variant='danger'>{message}</Message>}
     {loading && <Loader/>}
             <Form onSubmit={submitHandler}>
