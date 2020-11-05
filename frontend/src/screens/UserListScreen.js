@@ -80,7 +80,7 @@ const UserListScreen = ({history}) => {
                       <Button variant = 'light' className='btn-sm'> 
                       <i className='fas fa-edit'></i></Button>
                   </LinkContainer>
-                      {!user.isAdmin&&
+                      {user._id!==userInfo._id&&
                         <Button className='btn-sm'
                         variant = 'danger'
                         onClick = {() => deleteHandler(user._id)}
