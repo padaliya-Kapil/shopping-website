@@ -6,20 +6,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-import { listUsers } from '../actions/userAction.js';
-const UserListScreen = () => {
+import { listUsers ,deleteUser } from '../actions/userAction.js';
+
+const UserListScreen = ({history}) => {
   const dispatch = useDispatch();
+
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
+
+    
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success : successDelete } = userDelete;
+
 
   
 
   useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+    if(userInfo && userInfo.isAdmin){
+      dispatch(listUsers());
+    }else{
+      history.pushState('/login')
+    }
+    
+  }, [dispatch,history , successDelete ]);
 
   const deleteHandler = (id) =>{
-    console.log('delete')
+    if(window.confirm('Are you sure to delete the user ?' ) ){
+      dispatch(deleteUser(id))
+    }
+   
 }
   return (
     <>
@@ -62,14 +80,16 @@ const UserListScreen = () => {
                       <Button variant = 'light' className='btn-sm'> 
                       <i className='fas fa-edit'></i></Button>
                   </LinkContainer>
-
-                  <Button className='btn-sm'
-                  variant = 'danger'
-                  onClick = {() => deleteHandler(user._id)}
-
-                  >
-                      <i className='fas fa-trash'></i>
-                  </Button>
+                      {!user.isAdmin&&
+                        <Button className='btn-sm'
+                        variant = 'danger'
+                        onClick = {() => deleteHandler(user._id)}
+      
+                        >
+                            <i className='fas fa-trash'></i>
+                        </Button>
+                      }
+                
                 </td>
               </tr>
             ))}
