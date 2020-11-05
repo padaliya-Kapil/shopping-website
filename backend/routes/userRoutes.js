@@ -1,14 +1,16 @@
 import {authUsers,
         getUserProfile ,
          registerUsers,
-         updateUserProfile
+         updateUserProfile,
+         getUsers
         } from '../controller/userController.js'
-import {protect} from '../middleware/authMiddleware.js'
+import {protect , admin } from '../middleware/authMiddleware.js'
 
 import express from 'express'
 const router = express.Router()
 
-router.route('/').post(registerUsers);
+router.route('/').post(registerUsers)
+                .get(protect , admin ,  getUsers)
 router.post('/login',authUsers);
 router.route('/profile')
         .get(protect,getUserProfile)  // protect is the middleware
