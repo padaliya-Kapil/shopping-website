@@ -7,9 +7,10 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
-import { getUserDetails } from '../actions/userAction.js';
+import { getUserDetails , updateUser } from '../actions/userAction.js';
+import {USER_UPDATE_RESET} from '../constants/userConstants';
 
-const UserEditScreen = ({ match }) => {
+const UserEditScreen = ({ match , history}) => {
   const userId = match.params.id;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,22 +19,36 @@ const UserEditScreen = ({ match }) => {
 
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails;
+
+  const userUpdate = useSelector((state) => state.userUpdate)
+  const { loading : loadingUpdate, error : errorUpdate, success : successUpdate } = userUpdate;
+
   //  console.log(userDetails)
 
   useEffect(() => {
+    if(successUpdate){
+      dispatch( {
+        type : USER_UPDATE_RESET
+      })
+      history.push('/admin/userlist')
+    }else {
     if (!user.name || user._id !== userId) {
       dispatch(getUserDetails(userId));
     } else {
       setName(user.name);
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
-    }
-  }, [user]);
+    }}
+  }, [user , history , successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(updateUser({_id : userId , name , email , isAdmin}))
   };
 
   return (
@@ -44,6 +59,8 @@ const UserEditScreen = ({ match }) => {
 
       <FormContainer>
         <h1>Edit user</h1>
+        {loadingUpdate&&<Loader/>}
+      {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
         {loading ? (
           <Loader />
@@ -70,7 +87,7 @@ const UserEditScreen = ({ match }) => {
                 onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
-
+            {user._id!==userInfo._id&&
             <Form.Group controlId='isAdmin'>
               <Form.Check
                 type='checkbox'
@@ -79,6 +96,7 @@ const UserEditScreen = ({ match }) => {
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
             </Form.Group>
+            }
 
             <Button type='submit' variant='primary'>
               Update
