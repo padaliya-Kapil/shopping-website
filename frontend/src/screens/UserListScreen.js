@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ const UserListScreen = ({history}) => {
       history.pushState('/login')
     }
     
-  }, [dispatch,history , successDelete ]);
+  }, [dispatch,history , successDelete , userInfo]);
 
   const deleteHandler = (id) =>{
     if(window.confirm('Are you sure to delete the user ?' ) ){
@@ -75,7 +75,7 @@ const UserListScreen = ({history}) => {
 
                 <td>
                   <LinkContainer
-                  to={`/user/${user._id}/edit`}
+                  to={`/admin/user/${user._id}/edit`}
                   >
                       <Button variant = 'light' className='btn-sm'> 
                       <i className='fas fa-edit'></i></Button>

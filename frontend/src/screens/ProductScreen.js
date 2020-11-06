@@ -23,7 +23,7 @@ const ProductScreen = ({history , match}) => {
 
     useEffect(()=>{
             dispatch(listProductDetails(match.params.id));
-    },[dispatch]) // runs as soon as the page loads
+    },[dispatch , match.params.id]) // runs as soon as the page loads
     //asuync await creates a promise
 
     const addToCardHandler  = () =>{
