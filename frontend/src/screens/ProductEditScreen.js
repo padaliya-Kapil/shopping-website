@@ -7,7 +7,8 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 
-import {listProductDetails} from '../actions/productActions.js';
+import {listProductDetails , updateProduct} from '../actions/productActions.js';
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 const ProductEditScreen = ({ match , history}) => {
   const productId = match.params.id;
@@ -25,9 +26,16 @@ const ProductEditScreen = ({ match , history}) => {
   const productDetails = useSelector((state) => state.productDetails)
   const { loading : loadingDetails, error : errorDetails, product} = productDetails;
 
+  const productUpdate = useSelector((state) => state.productUpdate)
+  const { loading : loadingUpdate, error : errorUpdate, success : successUpdate} = productUpdate;
+
   //  console.log(userDetails)
 
   useEffect(() => {
+    if(successUpdate){
+      dispatch({type : PRODUCT_UPDATE_RESET})
+      history.push('/admin/productlist')
+    }else{
    
     if (!product.name || product._id !== productId) {
       dispatch(listProductDetails(productId));
@@ -41,11 +49,21 @@ const ProductEditScreen = ({ match , history}) => {
       setCountInStock(product.countInStock);
       setDescription(product.description);
     }}
-  , [product , productId,  history , dispatch]);
+  }
+  , [product , productId,  history , successUpdate ,dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // TODO : Update product
+    dispatch(updateProduct({
+      _id : productId ,
+      name , 
+      price , 
+      image , 
+      brand , 
+      category ,
+      description ,
+      countInStock
+    }))
     };
 
   return (
@@ -56,8 +74,8 @@ const ProductEditScreen = ({ match , history}) => {
 
       <FormContainer>
         <h1>Edit product</h1>
-        {loadingDetails&&<Loader/>}
-      {errorDetails && <Message variant='danger'>{errorDetails}</Message>}
+        {loadingUpdate&&<Loader/>}
+      {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
         {loadingDetails ? (
           <Loader />
