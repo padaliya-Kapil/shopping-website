@@ -8,7 +8,12 @@ import {
     PRODUCT_DETAIL_FAIL,
     PRODUCT_DELETE_FAIL,
     PRODUCT_DELETE_SUCCESS,
-    PRODUCT_DELETE_REQUEST} from '../constants/productConstants.js'
+    PRODUCT_DELETE_REQUEST ,
+  PRODUCT_CREATE_REQUEST ,
+  PRODUCT_CREATE_SUCCESS ,
+  PRODUCT_CREATE_FAIL ,
+  PRODUCT_CREATE_RESET ,
+} from '../constants/productConstants.js'
 
     // thunk allows us to put a function inside a function
 export const listProducts = () => async(dispatch) =>{
@@ -90,6 +95,41 @@ export const deleteProduct  = (id) => async (dispatch, getState) => {
       });
     }
   };
+
+
+export const createProduct  = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+  const {data} = await axios.post(`/api/products/ `,{}, config);
+
+    // console.log(data)
+
+    dispatch({
+      type: PRODUCT_CREATE_SUCCESS,
+      payload : data 
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.response,
+    });
+  }
+};
   
   
     
