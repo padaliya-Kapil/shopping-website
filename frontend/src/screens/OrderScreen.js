@@ -19,7 +19,7 @@ import {
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match ,history}) => {
   const orderId = match.params.id;
 
   const [sdkReady, setSdkReady] = useState(false);
@@ -49,6 +49,9 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
+    if(!userInfo){
+      history.push('/login')
+    }
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
@@ -72,7 +75,7 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay ,successDeliver]);
+  }, [dispatch, order, orderId, successPay ,successDeliver , history]);
 
  
   const successPaymentHandler = (paymentResult) => {

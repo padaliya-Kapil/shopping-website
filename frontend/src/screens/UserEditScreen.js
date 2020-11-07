@@ -31,6 +31,9 @@ const UserEditScreen = ({ match , history}) => {
   //  console.log(userDetails)
 
   useEffect(() => {
+    if(!userInfo){
+      history.push('/login')
+    }
     if(successUpdate){
       dispatch( {
         type : USER_UPDATE_RESET
@@ -48,7 +51,7 @@ const UserEditScreen = ({ match , history}) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUser({_id : userId , name , email , isAdmin}))
+    dispatch(updateUser({_id : userId , name , email , isAdmin , history}))
   };
 
   return (
