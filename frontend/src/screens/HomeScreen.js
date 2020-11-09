@@ -5,20 +5,22 @@ import { Col, Row } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 
 import {listProducts} from '../actions/productActions.js'
 
 
 const HomeScreen = ({match}) => {
     const keyword = match.params.keyword
+    const pageNumber = match.params.pageNumber || 1 
 
     const dispatch = useDispatch()
     const productList = useSelector( state => state.productList)
-    const {loading , error, products} = productList;
+    const {loading , error, products , pages , page} = productList;
 
     useEffect(()=>{
-        dispatch(listProducts(keyword));
-    },[dispatch , keyword]) // runs as soon as the page loads
+        dispatch(listProducts(keyword , pageNumber));
+    },[dispatch , keyword , pageNumber ]) // runs as soon as the page loads
 
 
 
@@ -26,6 +28,7 @@ const HomeScreen = ({match}) => {
         <>
         <h1>Latest Products</h1>
         { loading ? <Loader/> :  error ? <Message variant='danger'>{error}</Message> : 
+             <>
              <Row>
 
              {products.map(product => (
@@ -35,6 +38,8 @@ const HomeScreen = ({match}) => {
              ))}
              
          </Row>
+         <Paginate pages = {pages} page = {page} keyword = {keyword ? keyword : ''}></Paginate>
+                </>
         }
        
         </>
