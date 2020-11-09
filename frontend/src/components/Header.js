@@ -1,9 +1,11 @@
 import React from 'react';
+import {Route} from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userAction';
+import SearchBox from './SearchBox';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,13 +21,17 @@ const Header = () => {
     <header>
       <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
         <Container>
+
           <LinkContainer to='/'>
             <Navbar.Brand>Kay-Shop</Navbar.Brand>
+
           </LinkContainer>
+          <Route render = {({history})=><SearchBox history = {history}/>}></Route>
+
 
           <Nav className='ml-auto'>
             {' '}
-            {/* margin left auto   */}
+
             <LinkContainer to='/cart'>
               <Nav.Link>
                 <i className='fas fa-shopping-cart'></i>Cart
