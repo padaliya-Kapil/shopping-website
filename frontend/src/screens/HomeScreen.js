@@ -18,7 +18,7 @@ const HomeScreen = ({match}) => {
 
     useEffect(()=>{
         dispatch(listProducts(keyword));
-    },[dispatch ]) // runs as soon as the page loads
+    },[dispatch , keyword]) // runs as soon as the page loads
 
 
 
