@@ -18,7 +18,10 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
-  PRODUCT_CREATE_REVIEW_REQUEST
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_FAIL,
+  PRODUCT_TOP_SUCCESS
 } from '../constants/productConstants.js'
 
     // thunk allows us to put a function inside a function
@@ -207,6 +210,28 @@ await axios.post(`/api/products/${productId}/reviews`,review, config);
     });
   }
 };
+
+export const listTopProducts = () => async(dispatch) =>{
+  try {
+      // will call the reducer to load to product 
+      dispatch({type:PRODUCT_TOP_REQUEST})
+
+      const {data} = await axios.get('/api/products/top')
+
+      dispatch({type:PRODUCT_TOP_SUCCESS ,
+          payload : data
+      })
+      
+  } catch (error) {
+
+      dispatch({type : PRODUCT_TOP_FAIL ,
+      payload : error.response && error.response.data.message 
+                              ? error.response.data.message 
+                              : error.response
+  })
+      
+  }
+}
   
   
     

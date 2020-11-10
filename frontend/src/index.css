@@ -1,7 +1,5 @@
 main{
   min-height : 80vh;
-  /* color: #255000; */
-  /* border: 1px solid black; */
 }
 h2{
   font-size: 1.4rem;
@@ -20,3 +18,28 @@ h1{
 h3{
   padding: 1rem 0;
 }
+  
+
+.carousel{
+  background-color: #1B1B1B;
+}
+
+.carousel-caption {
+  top : 0;
+  margin: auto;
+}
+.carousel-caption h3{
+color:  #ffffff;
+}
+ 
+
+.carousel a {
+  margin : 0 auto;
+}
+ 
+
+ .carousel img{
+  padding : 30px;
+  margin : 40px auto;
+}
+

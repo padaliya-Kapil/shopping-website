@@ -19,18 +19,19 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar  collapseOnSelect expand="lg" bg='primary' variant='dark'>
         <Container>
 
           <LinkContainer to='/'>
             <Navbar.Brand>Kay-Shop</Navbar.Brand>
-
           </LinkContainer>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+          <Navbar.Collapse id="responsive-navbar-nav">
+                      
           <Route render = {({history})=><SearchBox history = {history}/>}></Route>
 
-
-          <Nav className='ml-auto'>
-            {' '}
+          <Nav className='ml-auto ' >
 
             <LinkContainer to='/cart'>
               <Nav.Link>
@@ -44,7 +45,7 @@ const Header = () => {
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
-                    {' '}
+
                     Log out
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -70,7 +71,10 @@ const Header = () => {
               </NavDropdown>
             )}
           </Nav>
+          </Navbar.Collapse>
         </Container>
+
+        
       </Navbar>
     </header>
   );
