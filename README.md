@@ -1,4 +1,4 @@
-Hi this is a demo website made my using MERN stack. <br>
+Hi this is a demo website made by using MERN stack. <br>
 URL : https://kayshopapp.herokuapp.com/  <br>
 The website is fully responsive and works perfect on mobile , tablet  , or desktop screens .<br>
 For either create a new id or use following credentials: <br>
