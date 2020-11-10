@@ -1,6 +1,9 @@
 import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
+import Meta from '../components/Meta'
+
+
 
 import Product from '../components/Product'
 import Message from '../components/Message'
@@ -27,6 +30,7 @@ const HomeScreen = ({match}) => {
 
     return (
         <>
+        <Meta/>
         {!keyword && <ProductCarousel/>}
         <h1>Latest Products</h1>
         { loading ? <Loader/> :  error ? <Message variant='danger'>{error}</Message> : 

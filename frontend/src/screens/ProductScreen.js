@@ -1,11 +1,13 @@
 import React ,{useState ,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 
+
 import {Link} from 'react-router-dom'
 import {Row,Col,Image,ListGroup,Card,Button,ListGroupItem, Form} from 'react-bootstrap'
 
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 import Rating from '../components/Rating'
 
@@ -55,11 +57,13 @@ const ProductScreen = ({history , match}) => {
 
     return (
         <>
+     
 
         
         <Link to='/' className='btn btn-light my-3'>Go Back</Link>  
         { loading ? <Loader/> :  error ? <Message variant='danger'>{error}</Message> : 
 <>
+<Meta title = {product.name}/>
         <Row>
             <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid/>
