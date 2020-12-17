@@ -23,7 +23,7 @@ const Header = () => {
         <Container>
 
           <LinkContainer to='/'>
-            <Navbar.Brand>Kay-Shop</Navbar.Brand>
+            <Navbar.Brand>Okham-Shop</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
